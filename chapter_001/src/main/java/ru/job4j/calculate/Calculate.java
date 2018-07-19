@@ -12,4 +12,14 @@ public class Calculate {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 	}
+
+	/**
+	 * Method echo.
+	 * @param name Igor Khmelevskiy
+	 * @return Echo plus Igor Khmelevskiy
+	 */ 
+	public String echo(String name) {
+		return "Echo, echo, echo : " + name;
+	}
+
 }
