@@ -1,5 +1,9 @@
 package ru.job4j.tracker;
 
+import java.util.Date;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+
 /**
  * @author Igor Khmelevskiy (mailto:igorkkhm@gmail.com)
  * @version $Id$
@@ -94,14 +98,17 @@ public class StartUI {
         System.out.println("------------ Показать все заявки ------------");
         Item[] items = this.tracker.findAll();
         for (int index = 0; index < items.length; index++) {
-            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", Дата создания: " + items[index].create + ", ID: " + items[index].getId() + "\n", index+1);
+            String pattern = "dd MMMMM yyyy HH:mm:ss";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
+            String date = simpleDateFormat.format(new Date(items[index].create));
+            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", Дата создания: " + date + ", ID: " + items[index].getId() + "\n", index+1);
         }
-        System.out.println("-------- Показаны все заявки. -------");
+        System.out.println("------------ Показаны все заявки ------------");
         System.out.println();
     }
 
     /**
-     * Метод редкатирует заявку.
+     * Метод редактирует заявку.
      */
     private void edit() {
         System.out.println();
@@ -112,20 +119,19 @@ public class StartUI {
         long create = System.currentTimeMillis();
         Item item = new Item(name, description, create);
         this.tracker.replace(id, item);
-        System.out.println("---------- Заявка заменена ----------");
+        System.out.println("--------------- Заявка заменена ---------------");
         System.out.println();
     }
 
     /**
      * Метод удаляет заявку.
      */
-
     private void delete() {
         System.out.println();
-        System.out.println("--------- Удаление заявки ---------");
+        System.out.println("--------------- Удаление заявки ----------------");
         String id = this.input.ask("Введите ID удаляемой заявки: ");
         this.tracker.delete(id);
-        System.out.println("--------- Заявка удалена -----------");
+        System.out.println("---------------- Заявка удалена ----------------");
         System.out.println();
     }
 
@@ -134,10 +140,14 @@ public class StartUI {
      */
     private void findById() {
         System.out.println();
-        System.out.println("---------- Поиск заявки по ID ----------");
+        System.out.println("------------- Поиск заявки по ID ---------------");
         String id = this.input.ask("Введите ID искомой заявкки: ");
         Item item = this.tracker.findById(id);
-        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + item.create + ", ID: " + item.getId());
+        String pattern = "dd MMMMM yyyy HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
+        String date = simpleDateFormat.format(new Date(item.create));
+        System.out.println("Искомая заявка: ");
+        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
         System.out.println();
     }
 
@@ -146,10 +156,14 @@ public class StartUI {
      */
     private void findByName() {
         System.out.println();
-        System.out.println("---------- Поиск заявки по имени ----------");
+        System.out.println("------------- Поиск заявки по имени -------------");
         String name = this.input.ask("Введите имя для поиска: ");
         Item item = this.tracker.findByName(name);
-        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + item.create + ", ID: " + item.getId());
+        String pattern = "dd MMMMM yyyy HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
+        String date = simpleDateFormat.format(new Date(item.create));
+        System.out.println("Искомая заявка: ");
+        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
         System.out.println();
     }
 
