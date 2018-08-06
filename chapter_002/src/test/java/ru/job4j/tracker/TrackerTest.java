@@ -22,9 +22,9 @@ public class TrackerTest {
     @Test
     public void replace() {
         Item[] items = {
-                new Item ("test 1", "description 1", 123L),
-                new Item ("test 2", "description 2", 1234L),
-                new Item ("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1", 123L),
+                new Item("test 2", "description 2", 1234L),
+                new Item("test 3", "description 3", 12345L),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -42,9 +42,9 @@ public class TrackerTest {
     @Test
     public void delete() {
         Item[] items = {
-                new Item ("test 1", "description 1", 123L),
-                new Item ("test 2", "description 2", 1234L),
-                new Item ("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1", 123L),
+                new Item("test 2", "description 2", 1234L),
+                new Item("test 3", "description 3", 12345L),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -61,9 +61,9 @@ public class TrackerTest {
     @Test
     public void findAll() {
         Item[] items = {
-                new Item ("test 1", "description 1", 123L),
-                new Item ("test 2", "description 2", 1234L),
-                new Item ("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1", 123L),
+                new Item("test 2", "description 2", 1234L),
+                new Item("test 3", "description 3", 12345L),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -76,10 +76,10 @@ public class TrackerTest {
     @Test
     public void findByName() {
         Item[] items = {
-                new Item ("test 1", "description 1", 123L),
-                new Item ("test 2", "description 2", 1234L),
-                new Item ("test 3", "description 3", 12345L),
-                new Item ("test 1", "description 4", 111L)
+                new Item("test 1", "description 1", 123L),
+                new Item("test 2", "description 2", 1234L),
+                new Item("test 3", "description 3", 12345L),
+                new Item("test 1", "description 4", 111L)
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);

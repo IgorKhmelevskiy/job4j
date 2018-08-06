@@ -21,7 +21,7 @@ public class Tracker {
         item.setId(this.generateId());
         this.items[position++] = item;
         return item;
-    } ;
+    };
 
     /**
      * Метод генерирует ID заявки рандомом
@@ -58,7 +58,7 @@ public class Tracker {
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
                 status = true;
-                System.arraycopy(this.items,index + 1, this.items, index, items.length - 1 - index);
+                System.arraycopy(this.items, index + 1, this.items, index, items.length - 1 - index);
                 position--;
                 break;
             }
@@ -97,7 +97,7 @@ public class Tracker {
      * @return заявка
      */
     public Item findById(String id) {
-        Item item = null;
+        Item item = new Item();
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
                 item = this.items[index];
@@ -106,6 +106,4 @@ public class Tracker {
         }
         return item;
     };
-
-
 }
