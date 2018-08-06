@@ -36,26 +36,34 @@ public class Tracker {
      * @param id ID заявки, которую надо заменить
      * @param item Новая заявка
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean status = false;
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
+                status = true;
+                item.setId(this.generateId());
                 this.items[index] = item;
+                break;
             }
         }
+        return status;
     };
 
     /**
      * Метод удаляет заявку с указанным ID
      * @param id ID заявки, которую надо удалить
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean status = false;
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
-                System.arraycopy(this.items,index + 1, this.items, index, position - index);
-                this.items[position] = null;
+                status = true;
+                System.arraycopy(this.items,index + 1, this.items, index, items.length - 1 - index);
                 position--;
+                break;
             }
         }
+        return status;
     };
 
 
@@ -64,19 +72,13 @@ public class Tracker {
      * @return Массив заявок
      */
     public Item[] findAll() {
-        Item[] itemsAll = new Item[position];
-        for (int index = 0; index < position; index++) {
-            if(this.items[index] != null) {
-                itemsAll[index] = this.items[index];
-            }
-        }
-        return itemsAll;
+        return Arrays.copyOf(this.items, this.position);
     };
 
     /**
      * Метод поиска заявки по имени
      * @param key Имя
-     * @return найдення заявка
+     * @return найденная заявка
      */
     public Item findByName(String key) {
         Item namedItem = new Item();

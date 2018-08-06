@@ -21,28 +21,44 @@ public class TrackerTest {
 
     @Test
     public void replace() {
-        Tracker tracker = new Tracker();
         Item first = new Item("test 1", "testDescription 1", 123L);
-        tracker.add(first);
         Item second = new Item("test 2", "testDescription 2", 1234L);
-        tracker.add(second);
         Item third = new Item("test 3", "testDescription 3", 12345L);
-        tracker.add(third);
         Item replaceItem = new Item("test", "replacement", 321L);
+
+        Tracker tracker = new Tracker();
+        tracker.add(first);
+        tracker.add(second);
+        tracker.add(third);
+
+        Tracker expectedTracker = new Tracker();
+        expectedTracker.add(first);
+        expectedTracker.add(replaceItem);
+        expectedTracker.add(third);
+
         tracker.replace(second.getId(), replaceItem);
-        assertThat(tracker.findAll()[1], is(replaceItem));
+
+        assertThat(tracker.findAll(), is(expectedTracker.findAll()));
     }
 
     @Test
     public void delete() {
-        Tracker tracker = new Tracker();
         Item first = new Item("test 1", "testDescription 1", 123L);
-        tracker.add(first);
         Item second = new Item("test 2", "testDescription 2", 1234L);
-        tracker.add(second);
         Item third = new Item("test 3", "testDescription 3", 12345L);
+
+        Tracker tracker = new Tracker();
+        tracker.add(first);
+        tracker.add(second);
         tracker.add(third);
+
+        Tracker expectedTracker = new Tracker();
+        expectedTracker.add(second);
+        expectedTracker.add(third);
+
         tracker.delete(first.getId());
+
+        assertThat(tracker.findAll(), is(expectedTracker.findAll()));
     }
 
     @Test
@@ -54,6 +70,7 @@ public class TrackerTest {
         tracker.add(second);
         Item third = new Item("test 3", "testDescription 3", 12345L);
         tracker.add(third);
+
         Item[] allItems = tracker.findAll();
         assertThat(allItems[0], is(first));
         assertThat(allItems[1], is(second));
