@@ -21,73 +21,76 @@ public class TrackerTest {
 
     @Test
     public void replace() {
-        Item first = new Item("test 1", "testDescription 1", 123L);
-        Item second = new Item("test 2", "testDescription 2", 1234L);
-        Item third = new Item("test 3", "testDescription 3", 12345L);
-        Item replaceItem = new Item("test", "replacement", 321L);
-
+        Item[] items = {
+                new Item ("test 1", "description 1", 123L),
+                new Item ("test 2", "description 2", 1234L),
+                new Item ("test 3", "description 3", 12345L),
+        };
         Tracker tracker = new Tracker();
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-
-        Tracker expectedTracker = new Tracker();
-        expectedTracker.add(first);
-        expectedTracker.add(replaceItem);
-        expectedTracker.add(third);
-
-        tracker.replace(second.getId(), replaceItem);
-
-        assertThat(tracker.findAll(), is(expectedTracker.findAll()));
+        tracker.add(items[0]);
+        tracker.add(items[1]);
+        tracker.add(items[2]);
+        Item replaceItem = new Item("test", "replacement", 321L);
+        Item[] expectedItems = {
+                items[0], replaceItem, items[2]
+        };
+        tracker.replace(items[1].getId(), replaceItem);
+        Item[] allItems = tracker.findAll();
+        assertThat(expectedItems, is(allItems));
     }
 
     @Test
     public void delete() {
-        Item first = new Item("test 1", "testDescription 1", 123L);
-        Item second = new Item("test 2", "testDescription 2", 1234L);
-        Item third = new Item("test 3", "testDescription 3", 12345L);
-
+        Item[] items = {
+                new Item ("test 1", "description 1", 123L),
+                new Item ("test 2", "description 2", 1234L),
+                new Item ("test 3", "description 3", 12345L),
+        };
         Tracker tracker = new Tracker();
-        tracker.add(first);
-        tracker.add(second);
-        tracker.add(third);
-
-        Tracker expectedTracker = new Tracker();
-        expectedTracker.add(second);
-        expectedTracker.add(third);
-
-        tracker.delete(first.getId());
-
-        assertThat(tracker.findAll(), is(expectedTracker.findAll()));
+        tracker.add(items[0]);
+        tracker.add(items[1]);
+        tracker.add(items[2]);
+        Item[] itemsExpected = {
+                items[1], items[2]
+        };
+        tracker.delete(items[0].getId());
+        Item[] result = tracker.findAll();
+        assertThat(itemsExpected, is(result));
     }
 
     @Test
     public void findAll() {
+        Item[] items = {
+                new Item ("test 1", "description 1", 123L),
+                new Item ("test 2", "description 2", 1234L),
+                new Item ("test 3", "description 3", 12345L),
+        };
         Tracker tracker = new Tracker();
-        Item first = new Item("test 1", "testDescription 1", 123L);
-        tracker.add(first);
-        Item second = new Item("test 2", "testDescription 2", 1234L);
-        tracker.add(second);
-        Item third = new Item("test 3", "testDescription 3", 12345L);
-        tracker.add(third);
-
+        tracker.add(items[0]);
+        tracker.add(items[1]);
+        tracker.add(items[2]);
         Item[] allItems = tracker.findAll();
-        assertThat(allItems[0], is(first));
-        assertThat(allItems[1], is(second));
-        assertThat(allItems[2], is(third));
+        assertThat(items, is(allItems));
     }
 
     @Test
     public void findByName() {
+        Item[] items = {
+                new Item ("test 1", "description 1", 123L),
+                new Item ("test 2", "description 2", 1234L),
+                new Item ("test 3", "description 3", 12345L),
+                new Item ("test 1", "description 4", 111L)
+        };
         Tracker tracker = new Tracker();
-        Item first = new Item("test 1", "testDescription 1", 123L);
-        tracker.add(first);
-        Item second = new Item("test 2", "testDescription 2", 1234L);
-        tracker.add(second);
-        Item third = new Item("test 3", "testDescription 3", 12345L);
-        tracker.add(third);
-        Item find = tracker.findByName("test 2");
-        assertThat(find, is(second));
+        tracker.add(items[0]);
+        tracker.add(items[1]);
+        tracker.add(items[2]);
+        tracker.add(items[3]);
+        Item[] itemsExpected = {
+                items[0], items[3]
+        };
+        Item[] result = tracker.findByName("test 1");
+        assertThat(result, is(itemsExpected));
     }
 
     @Test

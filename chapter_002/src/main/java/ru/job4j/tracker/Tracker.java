@@ -41,7 +41,7 @@ public class Tracker {
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
                 status = true;
-                item.setId(this.generateId());
+                item.setId(id);
                 this.items[index] = item;
                 break;
             }
@@ -78,16 +78,17 @@ public class Tracker {
     /**
      * Метод поиска заявки по имени
      * @param key Имя
-     * @return найденная заявка
+     * @return найденне заявки
      */
-    public Item findByName(String key) {
-        Item namedItem = new Item();
+    public Item[] findByName(String key) {
+        Item[] namedItem = new Item[position];
+        int count = 0;
         for (int index = 0; index < position; index++) {
             if (this.items[index].getName().equals(key)) {
-                namedItem = this.items[index];
+                namedItem[count++] = this.items[index];
             }
         }
-        return namedItem;
+        return Arrays.copyOf(namedItem, count);
     }
 
     /**
