@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
  * @version $Id$
  * @since 0.1
  */
+
 public class StartUI {
     /**
      * Константы для:
@@ -20,13 +21,16 @@ public class StartUI {
      * 6 - Найти заявку по имени
      * 7 - Выйти из программы
      */
-    private static final String AddNewItem = "1";
-    private static final String ShowAllItems = "2";
-    private static final String EditItem = "3";
-    private static final String DeleteItem = "4";
-    private static final String FindItemById = "5";
-    private static final String FindItemByName = "6";
-    private static final String ExitProgram = "7";
+    private static final String ADDNEWITEM = "1";
+    private static final String SHOWALLITEMS = "2";
+    private static final String EDITITEM = "3";
+    private static final String DELETEITEM = "4";
+    private static final String FINDITEMBYID = "5";
+    private static final String FINDITEMBYNAME = "6";
+    private static final String EXITPROGRAM = "7";
+
+    private String pattern = "dd MMMMM yyyy - HH:mm:ss";
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
 
     /**
      * Получение данных от пользователя.
@@ -55,20 +59,21 @@ public class StartUI {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
-            String answer = this.input.ask("Введите пункт меню: ");
-            if (AddNewItem.equals(answer)) {
+            System.out.println();
+            String answer = this.input.ask("--->> Выберите пункт меню: ");
+            if (ADDNEWITEM.equals(answer)) {
                 this.addItem();
-            } else if (ShowAllItems.equals(answer)) {
+            } else if (SHOWALLITEMS.equals(answer)) {
                 this.showAll();
-            } else if (EditItem.equals(answer)) {
+            } else if (EDITITEM.equals(answer)) {
                 this.edit();
-            } else if (DeleteItem.equals(answer)) {
+            } else if (DELETEITEM.equals(answer)) {
                 this.delete();
-            } else if (FindItemById.equals(answer)) {
+            } else if (FINDITEMBYID.equals(answer)) {
                 this.findById();
-            } else if (FindItemByName.equals(answer)) {
+            } else if (FINDITEMBYNAME.equals(answer)) {
                 this.findByName();
-            } else if (ExitProgram.equals(answer)) {
+            } else if (EXITPROGRAM.equals(answer)) {
                 exit = true;
             }
         }
@@ -98,10 +103,8 @@ public class StartUI {
         System.out.println("------------ Показать все заявки ------------");
         Item[] items = this.tracker.findAll();
         for (int index = 0; index < items.length; index++) {
-            String pattern = "dd MMMMM yyyy HH:mm:ss";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
             String date = simpleDateFormat.format(new Date(items[index].create));
-            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", Дата создания: " + date + ", ID: " + items[index].getId() + "\n", index+1);
+            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", Дата создания: " + date + ", ID: " + items[index].getId() + "\n", index + 1);
         }
         System.out.println("------------ Показаны все заявки ------------");
         System.out.println();
@@ -118,8 +121,11 @@ public class StartUI {
         String description = this.input.ask("Введите новое описание заявки: ");
         long create = System.currentTimeMillis();
         Item item = new Item(name, description, create);
-        this.tracker.replace(id, item);
-        System.out.println("--------------- Заявка заменена ---------------");
+        if (this.tracker.replace(id, item)) {
+            System.out.println("--------------- Заявка заменена ---------------");
+        } else {
+            System.out.println("--------- Заявка с таким ID не найдена --------");
+        }
         System.out.println();
     }
 
@@ -130,8 +136,11 @@ public class StartUI {
         System.out.println();
         System.out.println("--------------- Удаление заявки ----------------");
         String id = this.input.ask("Введите ID удаляемой заявки: ");
-        this.tracker.delete(id);
-        System.out.println("---------------- Заявка удалена ----------------");
+        if (this.tracker.delete(id)) {
+            System.out.println("---------------- Заявка удалена ----------------");
+        } else {
+            System.out.println("---------- Заявка с таким ID не найдена --------");
+        }
         System.out.println();
     }
 
@@ -142,28 +151,48 @@ public class StartUI {
         System.out.println();
         System.out.println("------------- Поиск заявки по ID ---------------");
         String id = this.input.ask("Введите ID искомой заявкки: ");
+        boolean check = false;
         Item item = this.tracker.findById(id);
-        String pattern = "dd MMMMM yyyy HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
-        String date = simpleDateFormat.format(new Date(item.create));
-        System.out.println("Искомая заявка: ");
-        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
+        if (item.getName() != null) {
+                check = true;
+        }
+        if (check) {
+            String date = simpleDateFormat.format(new Date(item.create));
+            System.out.println("Искомая заявка: ");
+            System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
+            System.out.println();
+        } else {
+            System.out.println("---------- Заявка с таким ID не найдена --------");
+        }
         System.out.println();
     }
 
     /**
      * Метод находит заявку по имени.
      */
+
     private void findByName() {
         System.out.println();
         System.out.println("------------- Поиск заявки по имени -------------");
         String name = this.input.ask("Введите имя для поиска: ");
-        Item item = this.tracker.findByName(name);
-        String pattern = "dd MMMMM yyyy HH:mm:ss";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
-        String date = simpleDateFormat.format(new Date(item.create));
-        System.out.println("Искомая заявка: ");
-        System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
+        boolean check = false;
+        Item[] item = this.tracker.findByName(name);
+        for (int j = 0; j < item.length; j++) {
+            if (item[j].getName().equals(name)) {
+                check = true;
+                break;
+            }
+        }
+        if (check) {
+            System.out.println("Искомые заявки: ");
+            for (int i = 0; i < item.length; i++) {
+                String date = simpleDateFormat.format(new Date(item[i].create));
+                System.out.println("Имя: " + item[i].name + ", Описание: " + item[i].description + ", Дата создания: " + date + ", ID: " + item[i].getId());
+            }
+        } else {
+            System.out.println("-------- Нет заявок с таким именем ---------");
+        }
+        System.out.println();
         System.out.println();
     }
 
@@ -171,7 +200,7 @@ public class StartUI {
      * Метод показывает меню.
      */
     private void showMenu() {
-        System.out.println("*** Меню программы. ***");
+        System.out.println("***** Меню программы *****");
         System.out.println("1. Добавить новую заявку.");
         System.out.println("2. Показать все имеющиеся заявки.");
         System.out.println("3. Редактировать заявку.");
