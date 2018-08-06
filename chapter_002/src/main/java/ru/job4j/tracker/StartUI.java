@@ -175,15 +175,8 @@ public class StartUI {
         System.out.println();
         System.out.println("------------- Поиск заявки по имени -------------");
         String name = this.input.ask("Введите имя для поиска: ");
-        boolean check = false;
         Item[] item = this.tracker.findByName(name);
-        for (int j = 0; j < item.length; j++) {
-            if (item[j].getName().equals(name)) {
-                check = true;
-                break;
-            }
-        }
-        if (check) {
+        if (item.length > 0) {
             System.out.println("Искомые заявки: ");
             for (int i = 0; i < item.length; i++) {
                 String date = simpleDateFormat.format(new Date(item[i].create));
