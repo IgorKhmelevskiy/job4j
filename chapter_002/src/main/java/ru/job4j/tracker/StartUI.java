@@ -104,7 +104,7 @@ public class StartUI {
         Item[] items = this.tracker.findAll();
         for (int index = 0; index < items.length; index++) {
             String date = simpleDateFormat.format(new Date(items[index].create));
-            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", Дата создания: " + date + ", ID: " + items[index].getId() + "\n", index + 1);
+            System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", ID: " + items[index].getId() + System.lineSeparator(), index + 1);
         }
         System.out.println("------------ Показаны все заявки ------------");
         System.out.println();
