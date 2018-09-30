@@ -14,7 +14,7 @@ public class TrackerTest {
     @Test
     public void add() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test 1", "testDescription", 123L);
+        Item item = new Item("test 1", "testDescription");
         tracker.add(item);
         assertThat(tracker.findAll()[0], is(item));
     }
@@ -22,15 +22,15 @@ public class TrackerTest {
     @Test
     public void replace() {
         Item[] items = {
-                new Item("test 1", "description 1", 123L),
-                new Item("test 2", "description 2", 1234L),
-                new Item("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1"),
+                new Item("test 2", "description 2"),
+                new Item("test 3", "description 3"),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
         tracker.add(items[1]);
         tracker.add(items[2]);
-        Item replaceItem = new Item("test", "replacement", 321L);
+        Item replaceItem = new Item("test", "replacement");
         Item[] expectedItems = {
                 items[0], replaceItem, items[2]
         };
@@ -42,9 +42,9 @@ public class TrackerTest {
     @Test
     public void delete() {
         Item[] items = {
-                new Item("test 1", "description 1", 123L),
-                new Item("test 2", "description 2", 1234L),
-                new Item("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1"),
+                new Item("test 2", "description 2"),
+                new Item("test 3", "description 3"),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -61,9 +61,9 @@ public class TrackerTest {
     @Test
     public void findAll() {
         Item[] items = {
-                new Item("test 1", "description 1", 123L),
-                new Item("test 2", "description 2", 1234L),
-                new Item("test 3", "description 3", 12345L),
+                new Item("test 1", "description 1"),
+                new Item("test 2", "description 2"),
+                new Item("test 3", "description 3"),
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -76,10 +76,10 @@ public class TrackerTest {
     @Test
     public void findByName() {
         Item[] items = {
-                new Item("test 1", "description 1", 123L),
-                new Item("test 2", "description 2", 1234L),
-                new Item("test 3", "description 3", 12345L),
-                new Item("test 1", "description 4", 111L)
+                new Item("test 1", "description 1"),
+                new Item("test 2", "description 2"),
+                new Item("test 3", "description 3"),
+                new Item("test 1", "description 4")
         };
         Tracker tracker = new Tracker();
         tracker.add(items[0]);
@@ -96,7 +96,7 @@ public class TrackerTest {
     @Test
     public void findById() {
         Tracker tracker = new Tracker();
-        Item findItem = new Item("test 1", "testDescription 1", 123L);
+        Item findItem = new Item("test 1", "testDescription 1");
         tracker.add(findItem);
         Item find = tracker.findById(findItem.getId());
         assertThat(find, is(findItem));

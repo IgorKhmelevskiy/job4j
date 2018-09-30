@@ -29,8 +29,8 @@ public class StartUI {
     private static final String FINDITEMBYNAME = "6";
     private static final String EXITPROGRAM = "7";
 
-    private String pattern = "dd MMMMM yyyy - HH:mm:ss";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
+ // private String pattern = "dd MMMMM yyyy - HH:mm:ss";
+ // private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("ru", "RU"));
 
     /**
      * Получение данных от пользователя.
@@ -88,8 +88,8 @@ public class StartUI {
         System.out.println("------------ Добавление новой заявки ------------");
         String name = this.input.ask("Введите имя заявки: ");
         String description = this.input.ask("Введите описание заявки: ");
-        long create = System.currentTimeMillis();
-        Item item = new Item(name, description, create);
+//      long create = System.currentTimeMillis();
+        Item item = new Item(name, description);
         this.tracker.add(item);
         System.out.println("----- Новая заявка (ID: " + item.getId() + ") добавлена. -----");
         System.out.println();
@@ -103,7 +103,7 @@ public class StartUI {
         System.out.println("------------ Показать все заявки ------------");
         Item[] items = this.tracker.findAll();
         for (int index = 0; index < items.length; index++) {
-            String date = simpleDateFormat.format(new Date(items[index].create));
+//          String date = simpleDateFormat.format(new Date(items[index].create));
             System.out.printf("Заявка №%d: Имя: " + items[index].name + ", Описание: " + items[index].description + ", ID: " + items[index].getId() + System.lineSeparator(), index + 1);
         }
         System.out.println("------------ Показаны все заявки ------------");
@@ -119,8 +119,7 @@ public class StartUI {
         String id = this.input.ask("Введите ID редактируемой заявки: ");
         String name = this.input.ask("Введите новое имя заявки: ");
         String description = this.input.ask("Введите новое описание заявки: ");
-        long create = System.currentTimeMillis();
-        Item item = new Item(name, description, create);
+        Item item = new Item(name, description);
         if (this.tracker.replace(id, item)) {
             System.out.println("--------------- Заявка заменена ---------------");
         } else {
@@ -150,16 +149,16 @@ public class StartUI {
     private void findById() {
         System.out.println();
         System.out.println("------------- Поиск заявки по ID ---------------");
-        String id = this.input.ask("Введите ID искомой заявкки: ");
+        String id = this.input.ask("Введите ID искомой заявки: ");
         boolean check = false;
         Item item = this.tracker.findById(id);
         if (item.getName() != null) {
                 check = true;
         }
         if (check) {
-            String date = simpleDateFormat.format(new Date(item.create));
+//          String date = simpleDateFormat.format(new Date(item.create));
             System.out.println("Искомая заявка: ");
-            System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", Дата создания: " + date + ", ID: " + item.getId());
+            System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", ID: " + item.getId());
             System.out.println();
         } else {
             System.out.println("---------- Заявка с таким ID не найдена --------");
@@ -179,8 +178,8 @@ public class StartUI {
         if (item.length > 0) {
             System.out.println("Искомые заявки: ");
             for (int i = 0; i < item.length; i++) {
-                String date = simpleDateFormat.format(new Date(item[i].create));
-                System.out.println("Имя: " + item[i].name + ", Описание: " + item[i].description + ", Дата создания: " + date + ", ID: " + item[i].getId());
+//              String date = simpleDateFormat.format(new Date(item[i].create));
+                System.out.println("Имя: " + item[i].name + ", Описание: " + item[i].description + ", ID: " + item[i].getId());
             }
         } else {
             System.out.println("-------- Нет заявок с таким именем ---------");

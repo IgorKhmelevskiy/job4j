@@ -4,15 +4,15 @@ public class Item {
     private String id;
     public String name;
     public String description;
-    public long create;
+//  public long create;
 
     public Item() {
     }
 
-    public Item(String name, String description, long create) {
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
-        this.create = create;
+//      this.create = create;
     }
 
     public String getName() {
@@ -23,9 +23,7 @@ public class Item {
         return this.description;
     }
 
-    public long getCreate() {
-        return this.create;
-    }
+//  public long getCreate() { return this.create; }
 
     public String getId() {
         return this.id;
