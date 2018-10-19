@@ -60,7 +60,7 @@ public class StartUI {
             menu.show();
             int key = Integer.valueOf(input.ask("Выберите: "));
             menu.select(key);
-        } while (!"y".equals(this.input.ask("Exit?(y): ")));
+        } while (!"y".equals(this.input.ask("Выйти?(y): ")));
     }
 
 

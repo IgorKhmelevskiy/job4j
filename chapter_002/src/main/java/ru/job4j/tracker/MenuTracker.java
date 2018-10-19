@@ -78,7 +78,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return String.format("%s. %s", this.key(), "Показать все заявки.");
+            return String.format("%s. %s", this.key(), "Показать все имеющиеся заявки.");
         }
     }
 
@@ -106,7 +106,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return String.format("%s. %s", this.key(), "Редактирование заявки.");
+            return String.format("%s. %s", this.key(), "Редактировать заявку.");
         }
     }
 
@@ -131,7 +131,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return String.format("%s. %s", this.key(), "Удаление заявки.");
+            return String.format("%s. %s", this.key(), "Удалить заявку.");
         }
     }
 
