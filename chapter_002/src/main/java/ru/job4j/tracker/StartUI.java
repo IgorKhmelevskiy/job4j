@@ -11,32 +11,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class StartUI {
-    /**
-     * Константы для:
-     * 1 - Добавить заявку
-     * 2 - Показать все заявки
-     * 3 - Редактировать заявку
-     * 4 - Удалить заявку
-     * 5 - Найти заявку по ID
-     * 6 - Найти заявку по имени
-     * 7 - Выйти из программы
-     */
-    private static final String ADDNEWITEM = "1";
-    private static final String SHOWALLITEMS = "2";
-    private static final String EDITITEM = "3";
-    private static final String DELETEITEM = "4";
-    private static final String FINDITEMBYID = "5";
-    private static final String FINDITEMBYNAME = "6";
-    private static final String EXITPROGRAM = "7";
-
-    /**
-     * Получение данных от пользователя.
-     */
     private final Input input;
-
-    /**
-     * Хранилище заявок.
-     */
     private final Tracker tracker;
 
     /**
@@ -49,11 +24,7 @@ public class StartUI {
         this.tracker = tracker;
     }
 
-    /**
-     * Основной цикл программы.
-     */
     public void init() {
-        Tracker tracker = new Tracker();
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
         do {

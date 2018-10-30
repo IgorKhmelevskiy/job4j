@@ -40,9 +40,9 @@ public class Tracker {
         boolean status = false;
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
-                status = true;
                 item.setId(id);
                 this.items[index] = item;
+                status = true;
                 break;
             }
         }
@@ -57,9 +57,9 @@ public class Tracker {
         boolean status = false;
         for (int index = 0; index < position; index++) {
             if (this.items[index].getId().equals(id)) {
-                status = true;
                 System.arraycopy(this.items, index + 1, this.items, index, items.length - 1 - index);
                 position--;
+                status = true;
                 break;
             }
         }

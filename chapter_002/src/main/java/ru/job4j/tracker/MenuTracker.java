@@ -11,20 +11,17 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[1] = new AddAction();
-        this.actions[2] = new ShowAllAction();
-        this.actions[3] = new EditAction();
-        this.actions[4] = new DeleteAction();
-        this.actions[5] = new FindByIdAction();
-        this.actions[6] = new FindByNameAction();
+        this.actions[0] = new AddAction();
+        this.actions[1] = new ShowAllAction();
+        this.actions[2] = new EditAction();
+        this.actions[3] = new DeleteAction();
+        this.actions[4] = new FindByIdAction();
+        this.actions[5] = new FindByNameAction();
+        this.actions[6] = new ExitAction();
     }
 
     public void select(int key) {
         this.actions[key].execute(this.input, this.tracker);
-    }
-
-    public int getActionsLength() {
-        return this.actions.length;
     }
 
     public void show() {
@@ -37,7 +34,7 @@ public class MenuTracker {
     private class AddAction implements UserAction {
         @Override
         public int key() {
-            return 1;
+            return 0;
         }
 
         @Override
@@ -61,7 +58,7 @@ public class MenuTracker {
     private static class ShowAllAction implements UserAction{
         @Override
         public int key(){
-            return 2;
+            return 1;
         }
 
         @Override
@@ -85,7 +82,7 @@ public class MenuTracker {
     public class EditAction implements UserAction {
         @Override
         public int key() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -113,7 +110,7 @@ public class MenuTracker {
     public class DeleteAction implements UserAction {
         @Override
         public int key() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -138,7 +135,7 @@ public class MenuTracker {
     public class FindByIdAction implements UserAction {
         @Override
         public int key() {
-            return 5;
+            return 4;
         }
 
         @Override
@@ -170,7 +167,7 @@ public class MenuTracker {
     public class FindByNameAction implements UserAction {
         @Override
         public int key() {
-            return 6;
+            return 5;
         }
 
         @Override
@@ -194,6 +191,21 @@ public class MenuTracker {
         @Override
         public String info() {
             return String.format("%s. %s", this.key(), "Найти заявку по имени.");
+        }
+    }
+
+    public class ExitAction implements UserAction {
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {}
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Выйти из программы.");
         }
     }
 
