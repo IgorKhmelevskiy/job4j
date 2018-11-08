@@ -143,14 +143,10 @@ public class MenuTracker {
             System.out.println();
             System.out.println("------------- Поиск заявки по ID ---------------");
             String id = input.ask("Введите ID искомой заявки: ");
-            boolean check = false;
             Item item = tracker.findById(id);
             if (item.getName() != null) {
-                check = true;
-            }
-            if (check) {
                 System.out.println("Искомая заявка: ");
-                System.out.println("Имя: " + item.name + ", Описание: " + item.description + ", ID: " + item.getId());
+                item.out();
                 System.out.println();
             } else {
                 System.out.println("---------- Заявка с таким ID не найдена --------");
@@ -179,7 +175,7 @@ public class MenuTracker {
             if (item.length > 0) {
                 System.out.println("Искомые заявки: ");
                 for (int i = 0; i < item.length; i++) {
-                    System.out.println("Имя: " + item[i].name + ", Описание: " + item[i].description + ", ID: " + item[i].getId());
+                    item[i].out();
                 }
             } else {
                 System.out.println("-------- Нет заявок с таким именем ---------");
