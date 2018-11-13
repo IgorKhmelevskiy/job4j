@@ -25,9 +25,10 @@ public class MenuTracker {
     }
 
     public void show() {
-        for (UserAction action : this.actions)
-        if (action != null) {
-            System.out.println(action.info());
+        for (UserAction action : this.actions) {
+            if (action != null) {
+                System.out.println(action.info());
+            }
         }
     }
 
@@ -55,9 +56,9 @@ public class MenuTracker {
         }
     }
 
-    private static class ShowAllAction implements UserAction{
+    private static class ShowAllAction implements UserAction {
         @Override
-        public int key(){
+        public int key() {
             return 1;
         }
 
@@ -197,7 +198,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {}
+        public void execute(Input input, Tracker tracker) { }
 
         @Override
         public String info() {
