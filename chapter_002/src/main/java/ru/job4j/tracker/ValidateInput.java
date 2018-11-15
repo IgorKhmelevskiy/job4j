@@ -16,14 +16,24 @@ public class ValidateInput implements Input {
     public int ask(String question, int[] range) {
         boolean invalid = true;
         int value = -1;
+     /*   for value = this.input.ask(question, range) {
+
+            if (invalid) {
+                throw new IllegalStateException("Введите верное значение пункта меню (0 - 6).");
+            }
+            if (invalid) {
+                throw new IllegalStateException("Выберите верный пункт меню.");
+            }
+        }
+*/
         do {
             try {
                 value = this.input.ask(question, range);
                 invalid = false;
             } catch (NumberFormatException nfe) {
-                System.out.println("Введите верное значение пункта меню (0 - 6).");
+                System.out.println("Введенная информация неверна. Введите целое число от 0 до 6.");
             } catch (MenuOutException moe) {
-                System.out.println("Выберите верный пункт меню.");
+                System.out.println("Введенное число не соответствует какому-нибудь из пунктов меню. Введите другое целое число.");
             }
         } while (invalid);
         return value;

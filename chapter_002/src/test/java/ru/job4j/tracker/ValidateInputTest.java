@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * @author Igor Khmelevksiy (igorkkhm@gmail.com)
+ * @author Igor Khmelevkskiy (igorkkhm@gmail.com)
  * @version $Id$
  * @since 0.1
  */
@@ -32,8 +32,15 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        ValidateInput input = new ValidateInput(new StubInput(new String[] {"invalid", "1"}));
-        input.ask("Enter", new int[] {1});
-        assertThat(this.mem.toString(), is(String.format("Введите верное значение пункта меню (0 - 6).%n")));
+        ValidateInput input = new ValidateInput(new StubInput(new String[] {"not a number", "1"}));
+        input.ask("Введите", new int[] {1});
+        assertThat(this.mem.toString(), is(String.format("Введенная информация неверна. Введите целое число от 0 до 6.%n")));
+    }
+
+    @Test
+    public void whenWrongNumberInput() {
+        ValidateInput input = new ValidateInput(new StubInput(new String[] {"-1", "1"}));
+        input.ask("Введите", new int[] {1});
+        assertThat(this.mem.toString(), is(String.format("Введенное число не соответствует какому-нибудь из пунктов меню. Введите другое целое число.%n")));
     }
 }

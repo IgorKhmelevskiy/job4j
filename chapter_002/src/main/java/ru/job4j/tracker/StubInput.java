@@ -28,6 +28,5 @@ public class StubInput implements Input {
             throw new MenuOutException("Нет такого пункта в меню.");
         }
     }
-
 }
 
