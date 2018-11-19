@@ -4,6 +4,7 @@ public class MenuTracker {
     private Input input;
     private Tracker tracker;
     private UserAction[] actions = new UserAction[7];
+    private int position = 0;
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -11,13 +12,17 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[0] = new AddAction();
-        this.actions[1] = new ShowAllAction();
-        this.actions[2] = new EditAction();
-        this.actions[3] = new DeleteAction();
-        this.actions[4] = new FindByIdAction();
-        this.actions[5] = new FindByNameAction();
-        this.actions[6] = new ExitAction();
+        this.actions[position++] = new AddAction(0, "Добавить новую заявку.");
+        this.actions[position++] = new ShowAllAction(1, "Показать все имеющиеся заявки.");
+        this.actions[position++] = new EditAction(2, "Редактировать заявку.");
+        this.actions[position++] = new DeleteAction(3, "Удалить заявку.");
+        this.actions[position++] = new FindByIdAction(4, "Найти заявку по ID.");
+        this.actions[position++] = new FindByNameAction(5, "Найти заявку по имени.");
+        this.actions[position++] = new ExitAction(6, "Выйти из программы.");
+    }
+
+    public void addAction(UserAction action) {
+        this.actions[position++] = action;
     }
 
     public void select(int key) {
@@ -32,12 +37,10 @@ public class MenuTracker {
         }
     }
 
-    private class AddAction implements UserAction {
-        @Override
-        public int key() {
-            return 0;
+    class AddAction extends BaseAction {
+        public AddAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -49,19 +52,12 @@ public class MenuTracker {
             System.out.println("----- Новая заявка (ID: " + item.getId() + ") добавлена. -----");
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Добавить новую заявку.");
-        }
     }
 
-    private static class ShowAllAction implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    class ShowAllAction extends BaseAction {
+        private ShowAllAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -73,19 +69,12 @@ public class MenuTracker {
             System.out.println("------------ Показаны все заявки ------------");
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Показать все имеющиеся заявки.");
-        }
     }
 
-    public class EditAction implements UserAction {
-        @Override
-        public int key() {
-            return 2;
+    class EditAction extends BaseAction {
+        public EditAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -101,19 +90,12 @@ public class MenuTracker {
             }
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Редактировать заявку.");
-        }
     }
 
-    public class DeleteAction implements UserAction {
-        @Override
-        public int key() {
-            return 3;
+    class DeleteAction extends BaseAction {
+        public DeleteAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -126,19 +108,12 @@ public class MenuTracker {
             }
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Удалить заявку.");
-        }
     }
 
-    public class FindByIdAction implements UserAction {
-        @Override
-        public int key() {
-            return 4;
+    class FindByIdAction extends BaseAction {
+        public FindByIdAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -154,19 +129,12 @@ public class MenuTracker {
             }
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Найти заявку по ID.");
-        }
     }
 
-    public class FindByNameAction implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    class FindByNameAction extends BaseAction {
+        public FindByNameAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println();
@@ -184,26 +152,14 @@ public class MenuTracker {
             System.out.println();
             System.out.println();
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Найти заявку по имени.");
-        }
     }
 
-    public class ExitAction implements UserAction {
-        @Override
-        public int key() {
-            return 6;
+    class ExitAction extends BaseAction {
+        public ExitAction(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) { }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Выйти из программы.");
-        }
     }
 
 }
