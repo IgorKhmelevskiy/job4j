@@ -21,10 +21,6 @@ public class MenuTracker {
         this.actions[position++] = new ExitAction(6, "Выйти из программы.");
     }
 
-    public void addAction(UserAction action) {
-        this.actions[position++] = action;
-    }
-
     public void select(int key) {
         this.actions[key].execute(this.input, this.tracker);
     }
@@ -37,8 +33,8 @@ public class MenuTracker {
         }
     }
 
-    class AddAction extends BaseAction {
-        public AddAction(int key, String name) {
+    public class AddAction extends BaseAction {
+        AddAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -54,8 +50,8 @@ public class MenuTracker {
         }
     }
 
-    class ShowAllAction extends BaseAction {
-        private ShowAllAction(int key, String name) {
+    private class ShowAllAction extends BaseAction {
+        ShowAllAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -71,8 +67,8 @@ public class MenuTracker {
         }
     }
 
-    class EditAction extends BaseAction {
-        public EditAction(int key, String name) {
+    public class EditAction extends BaseAction {
+        EditAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -92,8 +88,8 @@ public class MenuTracker {
         }
     }
 
-    class DeleteAction extends BaseAction {
-        public DeleteAction(int key, String name) {
+    public class DeleteAction extends BaseAction {
+        DeleteAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -110,8 +106,8 @@ public class MenuTracker {
         }
     }
 
-    class FindByIdAction extends BaseAction {
-        public FindByIdAction(int key, String name) {
+    public class FindByIdAction extends BaseAction {
+        FindByIdAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -131,8 +127,8 @@ public class MenuTracker {
         }
     }
 
-    class FindByNameAction extends BaseAction {
-        public FindByNameAction(int key, String name) {
+    public class FindByNameAction extends BaseAction {
+        FindByNameAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -154,8 +150,8 @@ public class MenuTracker {
         }
     }
 
-    class ExitAction extends BaseAction {
-        public ExitAction(int key, String name) {
+    public class ExitAction extends BaseAction {
+        ExitAction(int key, String name) {
             super(key, name);
         }
         @Override
