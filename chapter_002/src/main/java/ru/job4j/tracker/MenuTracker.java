@@ -11,14 +11,14 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions[position++] = new AddAction(0, "Добавить новую заявку.");
         this.actions[position++] = new ShowAllAction(1, "Показать все имеющиеся заявки.");
         this.actions[position++] = new EditAction(2, "Редактировать заявку.");
         this.actions[position++] = new DeleteAction(3, "Удалить заявку.");
         this.actions[position++] = new FindByIdAction(4, "Найти заявку по ID.");
         this.actions[position++] = new FindByNameAction(5, "Найти заявку по имени.");
-        this.actions[position++] = new ExitAction(6, "Выйти из программы.");
+        this.actions[position++] = new ExitAction(ui);
     }
 
     public void select(int key) {
@@ -33,8 +33,8 @@ public class MenuTracker {
         }
     }
 
-    public class AddAction extends BaseAction {
-        AddAction(int key, String name) {
+    private class AddAction extends BaseAction {
+        public AddAction(int key, String name) {
             super(key, name);
         }
         @Override
@@ -67,7 +67,7 @@ public class MenuTracker {
         }
     }
 
-    public class EditAction extends BaseAction {
+    private class EditAction extends BaseAction {
         EditAction(int key, String name) {
             super(key, name);
         }
@@ -88,7 +88,7 @@ public class MenuTracker {
         }
     }
 
-    public class DeleteAction extends BaseAction {
+    private class DeleteAction extends BaseAction {
         DeleteAction(int key, String name) {
             super(key, name);
         }
@@ -106,7 +106,7 @@ public class MenuTracker {
         }
     }
 
-    public class FindByIdAction extends BaseAction {
+    private class FindByIdAction extends BaseAction {
         FindByIdAction(int key, String name) {
             super(key, name);
         }
@@ -127,7 +127,7 @@ public class MenuTracker {
         }
     }
 
-    public class FindByNameAction extends BaseAction {
+    private class FindByNameAction extends BaseAction {
         FindByNameAction(int key, String name) {
             super(key, name);
         }
@@ -150,12 +150,25 @@ public class MenuTracker {
         }
     }
 
-    public class ExitAction extends BaseAction {
-        ExitAction(int key, String name) {
-            super(key, name);
+    private class ExitAction implements UserAction {
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        private final StartUI ui;
+        ExitAction(StartUI ui) {
+            this.ui = ui;
         }
         @Override
-        public void execute(Input input, Tracker tracker) { }
+        public void execute(Input input, Tracker tracker) {
+            this.ui.stop();
+        }
+
+        @Override
+        public String info() {
+            return String.format("%s. %s", this.key(), "Выйти из программы.");
+        }
     }
 
 }

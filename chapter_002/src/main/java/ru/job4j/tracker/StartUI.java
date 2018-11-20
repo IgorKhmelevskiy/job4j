@@ -14,6 +14,7 @@ public class StartUI {
     private int[] range = new int[] {0, 1, 2, 3, 4, 5, 6};
     private final Input input;
     private final Tracker tracker;
+    private boolean exit = false;
 
     /**
      * Конструктор, инициализирующий поля.
@@ -27,13 +28,16 @@ public class StartUI {
 
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
-        do {
+        menu.fillActions(this);
+        if (!this.exit) {
             menu.show();
             menu.select(input.ask("Выберите:", range));
-        } while (!"y".equals(this.input.ask("Выйти?(y): ")));
+        }
     }
 
+    public void stop() {
+        this.exit = true;
+    }
 
     /**
      * Запуск программы.
