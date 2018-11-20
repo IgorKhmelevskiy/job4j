@@ -5,6 +5,8 @@ public class MenuTracker {
     private Tracker tracker;
     private UserAction[] actions = new UserAction[7];
     private int position = 0;
+    public int[] range = new int[this.actions.length];
+
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -18,7 +20,13 @@ public class MenuTracker {
         this.actions[position++] = new DeleteAction(3, "Удалить заявку.");
         this.actions[position++] = new FindByIdAction(4, "Найти заявку по ID.");
         this.actions[position++] = new FindByNameAction(5, "Найти заявку по имени.");
-        this.actions[position++] = new ExitAction(ui);
+        this.actions[position++] = new ExitAction(6, "Выйти из программы.", ui);
+    }
+
+    public void fillRange() {
+        for (int i = 0; i < range.length; i++) {
+            range[i] = i;
+        }
     }
 
     public void select(int key) {
@@ -150,24 +158,15 @@ public class MenuTracker {
         }
     }
 
-    private class ExitAction implements UserAction {
-        @Override
-        public int key() {
-            return 6;
-        }
-
+    private class ExitAction extends BaseAction {
         private final StartUI ui;
-        ExitAction(StartUI ui) {
+        ExitAction(int key, String name, StartUI ui) {
+            super(key, name);
             this.ui = ui;
         }
         @Override
         public void execute(Input input, Tracker tracker) {
             this.ui.stop();
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Выйти из программы.");
         }
     }
 
