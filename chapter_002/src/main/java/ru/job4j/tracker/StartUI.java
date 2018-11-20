@@ -29,10 +29,10 @@ public class StartUI {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillRange();
         menu.fillActions(this);
-        if (!this.exit) {
+        do {
             menu.show();
             menu.select(input.ask("Выберите:", menu.range));
-        }
+        } while (!this.exit);
     }
 
     public void stop() {
